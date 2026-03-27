@@ -7,12 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Threads REQUIRED)
 
-# Crow - header-only, добавляется через include
 # Скачиваем его через FetchContent
 include(FetchContent)
 
 message(STATUS "Fetching Crow...")
 
+# Crow - header-only, добавляется через include
 FetchContent_Declare(
 	Crow
 	GIT_REPOSITORY 	https://github.com/CrowCpp/Crow.git
@@ -21,12 +21,26 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Crow)
 
+message(STATUS "Fetching Asio...")
+
+# Asio - зависимость Crow
+FetchContent_Declare(
+	asio
+	GIT_REPOSITORY 	https://github.com/chriskohlhoff/asio.git
+	GIT_TAG 		asio-1-38-0
+)
+
+FetchContent_MakeAvailable(asio)
+
 add_executable(bookhub 
 	src/main.cpp
 )
 
 # Где компилятору искать заколовочные файлы
-target_include_directories(bookhub PRIVATE include)
+target_include_directories(bookhub PRIVATE 
+	include
+	${asio_SOURCE_DIR}/asio/include	
+)
 
 target_link_libraries(bookhub PRIVATE
 	Crow::Crow
