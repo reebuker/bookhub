@@ -4,14 +4,14 @@ all: backend frontend
 
 backend:
 	@echo "=== Building backend ==="
-	@cd backend && $(MKDIR) build 2>nul || true
+	@cd backend && mkdir build 2>nul || true
 	@cd backend/build && cmake .. 
 	@cmake --build backend/build 
 
 frontend:
 	@echo "=== Building frontend ==="
-	@cd frontend && npm install --silent
-	@cd frontend && npm run build
+	@cd frontend/my-react-app/ && npm install --silent
+	@cd frontend/my-react-app/ && npm run build
 
 clean:
 	@echo "=== Project cleanup ==="
@@ -21,10 +21,10 @@ clean:
 
 help:
 	@echo "Available commands:"
-	@echo "  make			- build backend и frontend"
+	@echo "  make		- build backend и frontend"
 	@echo "  make backend	- build only backend"
 	@echo "  make frontend	- build only frontend"
-	@echo "  make clean		- clean build и dist"
+	@echo "  make clean	- clean build и dist"
 
 
 
