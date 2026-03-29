@@ -10,7 +10,7 @@ class UserHandler : public BaseHandler
 {
 public:
     UserHandler(const std::string &basePath);
-    void registerRoutes(crow::SimpleApp &app);
+    void registerRoutes(App &app);
 
 private:
     // list takes full request, cause we need specific page, limit etc.
