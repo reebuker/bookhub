@@ -21,4 +21,6 @@ private:
     crow::response remove(int id);
 
     std::unordered_map<int, User> users_;
+    int last_id_;
+    std::mutex mutex_;
 };
