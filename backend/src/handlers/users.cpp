@@ -7,9 +7,9 @@ UserHandler::UserHandler(const std::string &basePath)
     this->last_id_ = 0;
 
     this->last_id_ += 1;
-    this->users_[this->last_id_] = User{1, "John Doe", "john@example.com"};
+    this->users_[this->last_id_] = User{last_id_, "John Doe", "john@example.com"};
     this->last_id_ += 1;
-    this->users_[this->last_id_] = User{1, "Jone Doe", "jane@example.com"};
+    this->users_[this->last_id_] = User{last_id_, "Jone Doe", "jane@example.com"};
 }
 
 crow::response UserHandler::list(const crow::request &req)
@@ -102,10 +102,9 @@ crow::response UserHandler::update(int id, const crow::request &req)
 
     this->mutex_.lock();
 
-    User user;
-    user.id = this->last_id_;
-    user.username = username;
+    User user = users_[id];
     user.email = email;
+    user.username = username;
     this->users_[id] = user;
     
     this->mutex_.unlock();
