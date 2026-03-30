@@ -113,9 +113,31 @@ crow::response UserHandler::update(int id, const crow::request &req)
 }
 
 crow::response UserHandler::remove(int id)
-{}
+{
+    if (this->users_.find(id) == this->users_.end())
+    {
+        return this->not_found("User not found");
+    }
+
+    this->mutex_.lock();
+
+    this->users_.erase(id);
+    
+    this->mutex_.unlock();
+
+    crow::json::wvalue resp;
+    resp["success"] = true;
+
+
+    return crow::response(crow::OK, resp);
+}
 
 void UserHandler::registerRoutes(App &app)
 {
-
+    app.route_dynamic(this->basePath_)
+        .methods(crow::HTTPMethod::GET)(
+            [this](const crow::request &req)
+            {
+                return this->list(req);
+            });
 }
