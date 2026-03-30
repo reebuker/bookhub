@@ -53,6 +53,7 @@ Server::Server(const ServerConfig &config): config_(config)
 void Server::setup()
 {
     // add handlers
+    this->addHandler(std::make_shared<UserHandler>("/api/users"));
 }
 
 void Server::addHandler(std::shared_ptr<IHandler> handler)

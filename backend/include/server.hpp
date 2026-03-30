@@ -5,8 +5,8 @@
 #include <string>
 
 #include "crow.h"
-
-#include "interface.hpp"
+#include "handlers/users.hpp"
+#include "handlers/interface.hpp"
 
 struct ServerConfig {
     int port = 8080;

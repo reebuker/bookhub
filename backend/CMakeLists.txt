@@ -35,6 +35,9 @@ FetchContent_MakeAvailable(Crow)
 
 add_executable(bookhub 
 	src/main.cpp
+	src/server.cpp
+	src/handlers/base.cpp
+	src/handlers/users.cpp
 )
 
 target_link_libraries(bookhub PUBLIC

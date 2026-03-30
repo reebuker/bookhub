@@ -4,7 +4,7 @@
 #include <mutex>
 
 #include "base.hpp"
-#include "user.hpp"
+#include "../models/user.hpp"
 
 class UserHandler : public BaseHandler
 {

@@ -1,4 +1,4 @@
-#include "users.hpp"
+#include "handlers/users.hpp"
 
 UserHandler::UserHandler(const std::string &basePath)
     : BaseHandler(basePath)
@@ -72,7 +72,10 @@ crow::response UserHandler::create(const crow::request &req)
     this->mutex_.lock();
 
     this->last_id_ += 1;
-    User user = User(this->last_id_, username, email);
+    User user;
+    user.id = this->last_id_;
+    user.username = username;
+    user.email = email;
     this->users_[this->last_id_] = user;
     
     this->mutex_.unlock();
@@ -99,7 +102,10 @@ crow::response UserHandler::update(int id, const crow::request &req)
 
     this->mutex_.lock();
 
-    User user = User(id, username, email);
+    User user;
+    user.id = this->last_id_;
+    user.username = username;
+    user.email = email;
     this->users_[id] = user;
     
     this->mutex_.unlock();
@@ -140,4 +146,32 @@ void UserHandler::registerRoutes(App &app)
             {
                 return this->list(req);
             });
+
+    app.route_dynamic(this->basePath_ + "/<int>")
+        .methods(crow::HTTPMethod::GET)(
+            [this](const crow::request &req, int id)
+            {
+                return this->get(id);
+            });
+        
+    app.route_dynamic(this->basePath_)
+        .methods(crow::HTTPMethod::POST)(
+            [this](const crow::request &req)
+            {
+                return this->create(req);
+            });
+
+    app.route_dynamic(this->basePath_ + "/<int>")
+        .methods(crow::HTTPMethod::PUT)(
+            [this](const crow::request &req, int id)
+            {
+                return this->update(id, req);
+            });
+
+    app.route_dynamic(this->basePath_ + "/<int>")
+        .methods(crow::HTTPMethod::DELETE)(
+            [this](const crow::request &req, int id)
+            {
+                return this->remove(id);
+            });    
 }
