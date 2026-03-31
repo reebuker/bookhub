@@ -25,12 +25,11 @@ fi
 # Функция проверки и установки пакета
 check_install() {
     if ! command -v "$1" &>/dev/null; then
-        echo "Установка $2..."
-
+        echo "Установка $1..."
         if [ "$PKG_MANAGER" = "brew" ]; then
             $PKG_MANAGER $INSTALL_CMD "$2"
         else
-            sudo $PKG_MANAGER $INSTALL_CMD "$2"
+            sudo $PKG_MANAGER $INSTALL_CMD "$1"
         fi
     else
         echo "$1 уже установлен"
@@ -47,11 +46,14 @@ else
 fi
 
 # Проверяем и устанавливаем необходимые компоненты
-check_install "g++" "g++"
+// аргумент 1 для linux pkg менеджеров, аргумент 2 для homebrew
+check_install "g++" "g++" 
 check_install "make" "make"
 check_install "cmake" "cmake"
 check_install "git" "git"
+check_install "libsqlite3-dev" "sqlite3"
 check_install "npm" "npm"
+
 
 # Установка зависимостей самого React-приложения
 PROJECT_DIR="./frontend/my-react-app"

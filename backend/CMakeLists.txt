@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Threads REQUIRED)
+find_package(SQLite3 REQUIRED)
 
 include(FetchContent)
 
@@ -33,6 +34,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Crow)
 
+message(STATUS "Fetching SQLite...")
+# Crow - header-only, добавляется через include
+FetchContent_Declare(
+	Crow
+	GIT_REPOSITORY 	https://github.com/CrowCpp/Crow.git
+	GIT_TAG 	master
+)
+
+FetchContent_MakeAvailable(Crow)
+
 add_executable(bookhub 
 	src/main.cpp
 	src/server.cpp
@@ -43,6 +54,7 @@ add_executable(bookhub
 target_link_libraries(bookhub PUBLIC
 	Crow::Crow
 	Threads::Threads
+	SQLite::SQLite3
 )
 
 # Где компилятору искать заколовочные файлы

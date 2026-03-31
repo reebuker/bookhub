@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "sqlite3.h"
+
 #include "server.hpp"
 
 int main()
