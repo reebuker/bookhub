@@ -6,6 +6,7 @@
 
 #include "crow.h"
 #include "handlers/users.hpp"
+#include "handlers/books.hpp"
 #include "handlers/interface.hpp"
 
 

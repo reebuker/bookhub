@@ -49,6 +49,7 @@ add_executable(bookhub
 	src/server.cpp
 	src/handlers/base.cpp
 	src/handlers/users.cpp
+	src/handlers/books.cpp
 )
 
 target_link_libraries(bookhub PUBLIC

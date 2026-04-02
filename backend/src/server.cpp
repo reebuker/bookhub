@@ -54,6 +54,7 @@ void Server::setup()
 {
     // add handlers
     this->addHandler(std::make_shared<UserHandler>("/api/users"));
+    this->addHandler(std::make_shared<BookHandler>("/api/books"));
 
     setupStaticRoutes(*this->app_);
 }
